@@ -4,13 +4,15 @@ import cors from "cors";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// ✅ Explicitly allow your frontend domain
+const allowedOrigins = [
+  "https://easypeasystocks-frontend-yilp.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET"],
+  credentials: false
+}));
+
 app.use(express.json());
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "Backend is running ✅" });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
